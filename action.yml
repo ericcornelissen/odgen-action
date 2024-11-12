@@ -1,0 +1,44 @@
+name: ODGen
+description: Run ODGen on your project
+
+inputs:
+  root:
+    description: The root of the project to analyze.
+    required: false
+    default: .
+  timeout:
+    description: The maximum duration of the analysis in seconds.
+    required: false
+    default: 300 # seconds, 5 minutes
+  vulnerability_type:
+    description: The type of vulnerability to scan for.
+    required: true
+
+runs:
+  using: docker
+  image: ./ODGen/Dockerfile
+  entrypoint: python3
+  args:
+    - /app/odgen.py
+
+    # The project to scan
+    - ${{inputs.root}}
+
+    # Scan for the specified vulnerability (does not support scanning for all
+    # at the same time)
+    - --vul-type
+    - ${{inputs.vulnerability_type}}
+
+    # Set the timeout as configured
+    - --timeout
+    - ${{inputs.timeout}}
+
+    # Scanning repositories, so module mode
+    - --module
+
+    # Conservatively report only those sink reachable from the package's main
+    # entrance.
+    - --no-file-based
+
+    # Only support Node.js for now
+    - --nodejs
