@@ -16,10 +16,10 @@ inputs:
 
 runs:
   using: docker
-  image: ./ODGen/Dockerfile
+  image: Dockerfile
   entrypoint: python3
   args:
-    - /app/odgen.py
+    - /app/ODGen/odgen.py
 
     # The project to scan
     - ${{inputs.root}}
