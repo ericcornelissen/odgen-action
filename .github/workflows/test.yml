@@ -15,15 +15,23 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          # expect: finds a vulnerability
           - vulnerability_type: os_command
             root: ./ODGen/tests/packages/command_injection/multi_file
+            expect: any vulnerability
           - vulnerability_type: proto_pollution
             root: ./ODGen/tests/packages/prototype_pollution/confucious@0.0.12
-
-          # expect: finds no vulnerability
+            expect: any vulnerability
           - vulnerability_type: proto_pollution
             root: ./ODGen/tests/packages/command_injection/multi_file
+            expect: no vulnerability
+
+          # testing validation logic
+          - vulnerability_type: proto_pollution
+            root: ./ODGen/tests/packages/command_injection/multi_file
+            expect: any vulnerability # should be 'no vulnerability'
+          - vulnerability_type: proto_pollution
+            root: ./ODGen/tests/packages/prototype_pollution/confucious@0.0.12
+            expect: no vulnerability # should be 'any vulnerability'
     steps:
       - name: Checkout repository
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
@@ -34,3 +42,15 @@ jobs:
         with:
           vulnerability_type: ${{matrix.vulnerability_type}}
           root: ${{matrix.root}}
+        id: odgen
+        continue-on-error: true
+      - name: Validate 'no vulnerability'
+        if: ${{matrix.expect=="no vulnerability" && steps.odgen.conclusion=="failure"}}
+        run: |
+          echo 'Expected any vulnerability but found none (ODGen succeeded)'
+          exit 1
+      - name: Validate 'any vulnerability'
+        if: ${{matrix.expect=="any vulnerability" && steps.odgen.conclusion=="success"}}
+        run: |
+          echo 'Expected any vulnerability but found none (ODGen succeeded)'
+          exit 1
