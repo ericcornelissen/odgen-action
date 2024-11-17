@@ -1,0 +1,35 @@
+diff --git a/odgen.py b/odgen.py
+index add9a0c..23ccce4 100755
+--- a/odgen.py
++++ b/odgen.py
+@@ -1,5 +1,6 @@
+ #!/usr/bin/env python3
+ 
++import sys
+ from src.core.opgen import OPGen
+ from src.core.graph import Graph
+ # from src.core.options import parse_args, setup_graph_env
+@@ -9,6 +10,7 @@ from src.core.options import parse_args
+ if __name__ == '__main__':
+     # args = parse_args()
+     opg = OPGen()
+-    opg.run()
++    code = opg.run()
++    sys.exit(code)
+     #print(G.op_cnt)
+ 
+diff --git a/src/core/opgen.py b/src/core/opgen.py
+index 90a6c93..0e6a49e 100644
+--- a/src/core/opgen.py
++++ b/src/core/opgen.py
+@@ -332,6 +332,10 @@ class OPGen:
+                 self.graph.export_to_CSV("./exports/nodes.csv", "./exports/rels.csv", light=True)
+             else:
+                 self.graph.export_to_CSV("./exports/nodes.csv", "./exports/rels.csv", light=False)
++        if len(self.graph.detection_res[options.vul_type]) == 0:
++            return 0
++        else:
++            return 1
+ 
+ def start_from_func(G, module_path, vul_type='proto_pollution'):
+     """
