@@ -45,12 +45,12 @@ jobs:
         id: odgen
         continue-on-error: true
       - name: Validate 'no vulnerability'
-        if: ${{matrix.expect=="no vulnerability" && steps.odgen.conclusion=="failure"}}
+        if: ${{matrix.expect=='no vulnerability' && steps.odgen.conclusion=='failure'}}
         run: |
           echo 'Expected any vulnerability but found none (ODGen succeeded)'
           exit 1
       - name: Validate 'any vulnerability'
-        if: ${{matrix.expect=="any vulnerability" && steps.odgen.conclusion=="success"}}
+        if: ${{matrix.expect=='any vulnerability' && steps.odgen.conclusion=='success'}}
         run: |
           echo 'Expected any vulnerability but found none (ODGen succeeded)'
           exit 1
