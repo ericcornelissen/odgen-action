@@ -9,44 +9,44 @@ inputs:
   timeout:
     description: The maximum duration of the analysis in seconds.
     required: false
-    default: 300 # seconds, 5 minutes
+    default: 900 # seconds, 15 minutes
 
 runs:
   using: composite
   steps:
     - name: Scan for Command Injection vulnerabilities
-      uses: ericcornelissen/odgen-action@cde04479f42faa057bfad2ad733faa853cea4fc2
+      uses: ericcornelissen/odgen-action@v1
       with:
         root: ${{inputs.root}}
-        timeout: ${{inputs.timeout}}
+        timeout: ${{inputs.timeout/6}}
         vulnerability_type: os_command
     - name: Scan for Code Injection vulnerabilities
-      uses: ericcornelissen/odgen-action@cde04479f42faa057bfad2ad733faa853cea4fc2
+      uses: ericcornelissen/odgen-action@v1
       with:
         root: ${{inputs.root}}
-        timeout: ${{inputs.timeout}}
+        timeout: ${{inputs.timeout/6}}
         vulnerability_type: code_exec
     - name: Scan for Prototype Pollution vulnerabilities
-      uses: ericcornelissen/odgen-action@cde04479f42faa057bfad2ad733faa853cea4fc2
+      uses: ericcornelissen/odgen-action@v1
       with:
         root: ${{inputs.root}}
-        timeout: ${{inputs.timeout}}
+        timeout: ${{inputs.timeout/6}}
         vulnerability_type: proto_pollution
     - name: Scan for Internal Property Tampering vulnerabilities
-      uses: ericcornelissen/odgen-action@cde04479f42faa057bfad2ad733faa853cea4fc2
+      uses: ericcornelissen/odgen-action@v1
       with:
         root: ${{inputs.root}}
-        timeout: ${{inputs.timeout}}
+        timeout: ${{inputs.timeout/6}}
         vulnerability_type: ipt
     - name: Scan for Cross-Site Scripting vulnerabilities
-      uses: ericcornelissen/odgen-action@cde04479f42faa057bfad2ad733faa853cea4fc2
+      uses: ericcornelissen/odgen-action@v1
       with:
         root: ${{inputs.root}}
-        timeout: ${{inputs.timeout}}
+        timeout: ${{inputs.timeout/6}}
         vulnerability_type: xss
     - name: Scan for Path Traversal vulnerabilities
-      uses: ericcornelissen/odgen-action@cde04479f42faa057bfad2ad733faa853cea4fc2
+      uses: ericcornelissen/odgen-action@v1
       with:
         root: ${{inputs.root}}
-        timeout: ${{inputs.timeout}}
+        timeout: ${{inputs.timeout/6}}
         vulnerability_type: path_traversal
