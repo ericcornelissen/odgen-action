@@ -45,4 +45,4 @@ jobs:
       - name: Run ODGen
         uses: ./all/
         with:
-          root: ./ODGen/tests/packages/command_injection/multi_file
+          root: ./ODGen/tests/packages/prototype_pollution/confucious@0.0.12
