@@ -1,0 +1,59 @@
+name: ODGen
+description: Run ODGen on your project
+
+inputs:
+  root:
+    description: The root of the project to analyze.
+    required: false
+    default: .
+  timeout:
+    description: The maximum duration of the analysis in seconds.
+    required: false
+    default: 900 # seconds, 15 minutes
+
+runs:
+  using: composite
+  steps:
+    - name: Compute individual timeout
+      id: timeout
+      shell: bash
+      run: echo "value=$(($TOTAL/$JOBS))" >>"${GITHUB_OUTPUT}"
+      env:
+        JOBS: 6
+        TOTAL: ${{inputs.timeout}}
+    - name: Scan for Command Injection vulnerabilities
+      uses: ericcornelissen/odgen-action@v1.0.2
+      with:
+        root: ${{inputs.root}}
+        timeout: ${{steps.timeout.outputs.value}}
+        vulnerability_type: os_command
+    - name: Scan for Code Injection vulnerabilities
+      uses: ericcornelissen/odgen-action@v1.0.2
+      with:
+        root: ${{inputs.root}}
+        timeout: ${{steps.timeout.outputs.value}}
+        vulnerability_type: code_exec
+    - name: Scan for Prototype Pollution vulnerabilities
+      uses: ericcornelissen/odgen-action@v1.0.2
+      with:
+        root: ${{inputs.root}}
+        timeout: ${{steps.timeout.outputs.value}}
+        vulnerability_type: proto_pollution
+    - name: Scan for Internal Property Tampering vulnerabilities
+      uses: ericcornelissen/odgen-action@v1.0.2
+      with:
+        root: ${{inputs.root}}
+        timeout: ${{steps.timeout.outputs.value}}
+        vulnerability_type: ipt
+    - name: Scan for Cross-Site Scripting vulnerabilities
+      uses: ericcornelissen/odgen-action@v1.0.2
+      with:
+        root: ${{inputs.root}}
+        timeout: ${{steps.timeout.outputs.value}}
+        vulnerability_type: xss
+    - name: Scan for Path Traversal vulnerabilities
+      uses: ericcornelissen/odgen-action@v1.0.2
+      with:
+        root: ${{inputs.root}}
+        timeout: ${{steps.timeout.outputs.value}}
+        vulnerability_type: path_traversal
