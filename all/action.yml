@@ -22,37 +22,37 @@ runs:
         JOBS: 6
         TOTAL: ${{inputs.timeout}}
     - name: Scan for Command Injection vulnerabilities
-      uses: $GITHUB_ACTION_PATH/../odgen-action@v1.0.4
+      uses: ../
       with:
         root: ${{inputs.root}}
         timeout: ${{steps.timeout.outputs.value}}
         vulnerability_type: os_command
     - name: Scan for Code Injection vulnerabilities
-      uses: $GITHUB_ACTION_PATH/../odgen-action@v1.0.4
+      uses: ../
       with:
         root: ${{inputs.root}}
         timeout: ${{steps.timeout.outputs.value}}
         vulnerability_type: code_exec
     - name: Scan for Prototype Pollution vulnerabilities
-      uses: $GITHUB_ACTION_PATH/../odgen-action@v1.0.4
+      uses: ../
       with:
         root: ${{inputs.root}}
         timeout: ${{steps.timeout.outputs.value}}
         vulnerability_type: proto_pollution
     - name: Scan for Internal Property Tampering vulnerabilities
-      uses: $GITHUB_ACTION_PATH/../odgen-action@v1.0.4
+      uses: ../
       with:
         root: ${{inputs.root}}
         timeout: ${{steps.timeout.outputs.value}}
         vulnerability_type: ipt
     - name: Scan for Cross-Site Scripting vulnerabilities
-      uses: $GITHUB_ACTION_PATH/../odgen-action@v1.0.4
+      uses: ../
       with:
         root: ${{inputs.root}}
         timeout: ${{steps.timeout.outputs.value}}
         vulnerability_type: xss
     - name: Scan for Path Traversal vulnerabilities
-      uses: $GITHUB_ACTION_PATH/../odgen-action@v1.0.4
+      uses: ../
       with:
         root: ${{inputs.root}}
         timeout: ${{steps.timeout.outputs.value}}
