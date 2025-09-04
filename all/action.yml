@@ -23,7 +23,7 @@ runs:
         TOTAL: ${{inputs.timeout}}
     - name: Build container
       shell: bash
-      working directory: $GITHUB_ACTION_PATH/..
+      working-directory: $GITHUB_ACTION_PATH/..
       run: docker build -t _odgen-action-odgen .
     - name: Scan for Command Injection vulnerabilities
       shell: bash
