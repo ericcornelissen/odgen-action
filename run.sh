@@ -16,7 +16,6 @@ VULN_TYPES=$(echo "$VULN_TYPES_RAW" | tr ',' '\n' | sed -E 's/^[[:space:]]+|[[:s
 VULN_TYPES_COUNT=$(echo "$VULN_TYPES" | wc -l)
 TIMEOUT=$((TIMEOUT_TOTAL/VULN_TYPES_COUNT))
 
-echo '::debug::DERIVED:'
 awk '{print "::debug::"$0}' <<<'DERIVED:'
 awk '{print "::debug::"$0}' <<<"VULN_TYPES:       $VULN_TYPES"
 awk '{print "::debug::"$0}' <<<"VULN_TYPES_COUNT: $VULN_TYPES_COUNT"
