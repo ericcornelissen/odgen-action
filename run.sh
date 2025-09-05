@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 PROJECT=$1
 VULN_TYPES_RAW=$2
 TIMEOUT_TOTAL=$3
