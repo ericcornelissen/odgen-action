@@ -14,6 +14,8 @@ inputs:
 runs:
   using: composite
   steps:
+    - shell: bash
+      run: echo '::warning::ericcornelissen/odgen-action/all has been deprecated in favor of ericcornelissen/odgen-action with a list of vulnerability types'
     ## Enable on next release
     # - name: Scan for Path Traversal vulnerabilities
     #   uses: ericcornelissen/odgen-action@14-script-to-run
@@ -27,8 +29,6 @@ runs:
     #       ipt
     #       xss
     #       path_traversal
-    - shell: bash
-      run: echo '::warn::ericcornelissen/odgen-action/all has been deprecated in favor of ericcornelissen/odgen-action with a list of vulnerability types'
     - name: Compute individual timeout
       id: timeout
       shell: bash

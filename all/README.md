@@ -4,8 +4,8 @@ A GitHub Action to scan your project for all vulnerability types supported by
 [ODGen](https://github.com/Song-Li/ODGen).
 
 > [!WARNING]
-> This variant of the ODGen Action is deprecated in favor of using the base
-> Action with a list of vulnerability types.
+> This variant of the ODGen Action is deprecated in favor of using the [base
+> Action](../README.md) with a list of vulnerability types.
 
 ## Usage
 
