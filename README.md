@@ -12,9 +12,9 @@ Also check the [/all](./all) variant.
 ```yml
 - uses: ericcornelissen/odgen-action@v1
   with:
-    # The type of vulnerability to scan for.
+    # The type of vulnerabilities to scan for.
     #
-    # Must be one of:
+    # Must be a (comma or newline separated) list of the following:
     # - os_command
     # - code_exec
     # - proto_pollution
@@ -23,7 +23,7 @@ Also check the [/all](./all) variant.
     # - path_traversal
     #
     # Required
-    vulnerability_type: os_command
+    vulnerability_type: os_command, proto_pollution
 
     # The root of the project to analyze.
     #
