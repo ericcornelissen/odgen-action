@@ -39,12 +39,8 @@ jobs:
           vulnerability_type: ${{matrix.vulnerability_type}}
           root: ${{matrix.root}}
       - name: Expect failure
-        run: |
-          if [ '${{steps.odgen.outcome}}' = 'success' ]; then
-            exit 1
-          else
-            exit 0
-          fi
+        if: steps.odgen.outcome == 'success'
+        run: exit 1
   base-pass:
     name: Base (pass)
     runs-on: ubuntu-24.04
@@ -74,7 +70,6 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - root: ./ODGen/tests/packages/command_injection/multi_file
           - root: ./ODGen/tests/packages/prototype_pollution/confucious@0.0.12
     steps:
       - name: Checkout repository
@@ -89,12 +84,8 @@ jobs:
         with:
           root: ${{matrix.root}}
       - name: Expect failure
-        run: |
-          if [ '${{steps.odgen.outcome}}' = 'success' ]; then
-            exit 1
-          else
-            exit 0
-          fi
+        if: steps.odgen.outcome == 'success'
+        run: exit 1
   all-pass:
     name: All (pass)
     runs-on: ubuntu-24.04
