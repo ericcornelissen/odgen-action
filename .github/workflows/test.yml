@@ -15,8 +15,7 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - vulnerability_type: proto_pollution
-            root: ./ODGen/tests/packages/command_injection/multi_file
+
           - vulnerability_type: os_command
             root: ./ODGen/tests/packages/prototype_pollution/confucious@0.0.12
     steps:
@@ -37,6 +36,9 @@ jobs:
       fail-fast: false
       matrix:
         include:
+          - vulnerability_type: proto_pollution
+            root: ./ODGen/tests/packages/command_injection/multi_file
+
           - vulnerability_type: os_command
             root: ./ODGen/tests/packages/command_injection/multi_file
           - vulnerability_type: proto_pollution
