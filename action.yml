@@ -17,28 +17,14 @@ inputs:
 runs:
   using: docker
   image: Dockerfile
-  entrypoint: python3
+  entrypoint: /app/run.sh
   args:
-    - /app/ODGen/odgen.py
-
     # The project to scan
     - ${{inputs.root}}
 
     # Scan for the specified vulnerability (does not support scanning for all
     # at the same time)
-    - --vul-type
     - ${{inputs.vulnerability_type}}
 
     # Set the timeout as configured
-    - --timeout
     - ${{inputs.timeout}}
-
-    # Scanning repositories, so module mode
-    - --module
-
-    # Conservatively report only those sink reachable from the package's main
-    # entrance.
-    - --no-file-based
-
-    # Only support Node.js for now
-    - --nodejs

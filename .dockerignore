@@ -1,0 +1,10 @@
+.github/
+all/
+ODGen/
+.dockerignore
+.gitmodules
+action.yml
+Dockerfile
+LICENSE
+README.md
+SECURITY.md

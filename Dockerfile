@@ -2,7 +2,7 @@ FROM python:3.8
 
 # Initialize the container
 WORKDIR /app
-ADD patches/ /app/patches
+COPY . /app
 
 # Get ODGen into the container
 RUN git clone https://github.com/Song-Li/ODGen.git
@@ -16,5 +16,5 @@ RUN git apply ../patches/exit_code.patch \
 
 # Install ODGen dependencies
 RUN apt-get update \
-	&& apt-get install npm -y
+	&& apt-get install bash npm -y
 RUN ./install.sh
