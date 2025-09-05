@@ -16,59 +16,15 @@ runs:
   steps:
     - shell: bash
       run: echo '::warning::ericcornelissen/odgen-action/all has been deprecated in favor of ericcornelissen/odgen-action with a list of vulnerability types'
-    ## Enable on next release
-    # - name: Scan for Path Traversal vulnerabilities
-    #   uses: ericcornelissen/odgen-action@v1.1.0
-    #   with:
-    #     root: ${{inputs.root}}
-    #     timeout: ${{steps.timeout.outputs.value}}
-    #     vulnerability_type: |
-    #       os_command
-    #       code_exec
-    #       proto_pollution
-    #       ipt
-    #       xss
-    #       path_traversal
-    - name: Compute individual timeout
-      id: timeout
-      shell: bash
-      run: echo "value=$(($TOTAL/$JOBS))" >>"${GITHUB_OUTPUT}"
-      env:
-        JOBS: 6
-        TOTAL: ${{inputs.timeout}}
-    - name: Scan for Command Injection vulnerabilities
-      uses: ericcornelissen/odgen-action@v1.0.4
-      with:
-        root: ${{inputs.root}}
-        timeout: ${{steps.timeout.outputs.value}}
-        vulnerability_type: os_command
-    - name: Scan for Code Injection vulnerabilities
-      uses: ericcornelissen/odgen-action@v1.0.4
-      with:
-        root: ${{inputs.root}}
-        timeout: ${{steps.timeout.outputs.value}}
-        vulnerability_type: code_exec
-    - name: Scan for Prototype Pollution vulnerabilities
-      uses: ericcornelissen/odgen-action@v1.0.4
-      with:
-        root: ${{inputs.root}}
-        timeout: ${{steps.timeout.outputs.value}}
-        vulnerability_type: proto_pollution
-    - name: Scan for Internal Property Tampering vulnerabilities
-      uses: ericcornelissen/odgen-action@v1.0.4
-      with:
-        root: ${{inputs.root}}
-        timeout: ${{steps.timeout.outputs.value}}
-        vulnerability_type: ipt
-    - name: Scan for Cross-Site Scripting vulnerabilities
-      uses: ericcornelissen/odgen-action@v1.0.4
-      with:
-        root: ${{inputs.root}}
-        timeout: ${{steps.timeout.outputs.value}}
-        vulnerability_type: xss
     - name: Scan for Path Traversal vulnerabilities
-      uses: ericcornelissen/odgen-action@v1.0.4
+      uses: ericcornelissen/odgen-action@v1.1.0
       with:
         root: ${{inputs.root}}
         timeout: ${{steps.timeout.outputs.value}}
-        vulnerability_type: path_traversal
+        vulnerability_type: |
+          os_command
+          code_exec
+          proto_pollution
+          ipt
+          xss
+          path_traversal
