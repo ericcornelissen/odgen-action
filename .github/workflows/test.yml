@@ -20,6 +20,12 @@ jobs:
             root: ./ODGen/tests/packages/command_injection/multi_file
           - vulnerability_type: proto_pollution
             root: ./ODGen/tests/packages/prototype_pollution/confucious@0.0.12
+          - vulnerability_type: os_command, proto_pollution
+            root: ./ODGen/tests/packages/command_injection/multi_file
+          - vulnerability_type: |
+              proto_pollution
+              os_command
+            root: ./ODGen/tests/packages/command_injection/multi_file
 
           # expect: finds no vulnerability
           - vulnerability_type: proto_pollution
