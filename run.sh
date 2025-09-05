@@ -2,9 +2,9 @@
 
 set -e
 
-PROJECT=$1
-VULN_TYPES_RAW=$2
-TIMEOUT_TOTAL=$3
+PROJECT="$1"
+VULN_TYPES_RAW="$2"
+TIMEOUT_TOTAL="$3"
 
 awk '{print "::debug::"$0}' <<<'GOT:'
 awk '{print "::debug::"$0}' <<<"PROJECT:        $PROJECT"
