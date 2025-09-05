@@ -19,12 +19,6 @@ runs:
   image: Dockerfile
   entrypoint: /app/run.sh
   args:
-    # The project to scan
     - ${{inputs.root}}
-
-    # Scan for the specified vulnerability (does not support scanning for all
-    # at the same time)
     - ${{inputs.vulnerability_type}}
-
-    # Set the timeout as configured
     - ${{inputs.timeout}}

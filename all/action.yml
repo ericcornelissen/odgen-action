@@ -18,7 +18,7 @@ runs:
       run: echo '::warning::ericcornelissen/odgen-action/all has been deprecated in favor of ericcornelissen/odgen-action with a list of vulnerability types'
     ## Enable on next release
     # - name: Scan for Path Traversal vulnerabilities
-    #   uses: ericcornelissen/odgen-action@14-script-to-run
+    #   uses: ericcornelissen/odgen-action@v1.1.0
     #   with:
     #     root: ${{inputs.root}}
     #     timeout: ${{steps.timeout.outputs.value}}
