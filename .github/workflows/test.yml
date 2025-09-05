@@ -8,14 +8,13 @@ on:
 permissions: read-all
 
 jobs:
-  e2e:
-    name: End-to-end
+  base-error:
+    name: Base (error)
     runs-on: ubuntu-24.04
     strategy:
       fail-fast: false
       matrix:
         include:
-          # expect: finds a vulnerability
           - vulnerability_type: os_command
             root: ./ODGen/tests/packages/command_injection/multi_file
           - vulnerability_type: proto_pollution
@@ -26,10 +25,33 @@ jobs:
               proto_pollution
               os_command
             root: ./ODGen/tests/packages/command_injection/multi_file
-
-          # expect: finds no vulnerability
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+          submodules: recursive
+      - name: Run ODGen
+        uses: ./
+        id: odgen
+        continue-on-error: true
+        with:
+          vulnerability_type: ${{matrix.vulnerability_type}}
+          root: ${{matrix.root}}
+      - name: Expect failure
+        if: steps.odgen.outcome == 'success'
+        run: exit 1
+  base-pass:
+    name: Base (pass)
+    runs-on: ubuntu-24.04
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
           - vulnerability_type: proto_pollution
             root: ./ODGen/tests/packages/command_injection/multi_file
+          - vulnerability_type: os_command
+            root: ./ODGen/tests/packages/prototype_pollution/confucious@0.0.12
     steps:
       - name: Checkout repository
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
@@ -41,9 +63,37 @@ jobs:
         with:
           vulnerability_type: ${{matrix.vulnerability_type}}
           root: ${{matrix.root}}
-  e2e-all:
-    name: End-to-end (all)
+  all-error:
+    name: All (error)
     runs-on: ubuntu-24.04
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - root: ./ODGen/tests/packages/prototype_pollution/confucious@0.0.12
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+          submodules: recursive
+      - name: Run ODGen
+        uses: ./all/
+        id: odgen
+        continue-on-error: true
+        with:
+          root: ${{matrix.root}}
+      - name: Expect failure
+        if: steps.odgen.outcome == 'success'
+        run: exit 1
+  all-pass:
+    name: All (pass)
+    runs-on: ubuntu-24.04
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - root: ./patches
     steps:
       - name: Checkout repository
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
@@ -53,4 +103,4 @@ jobs:
       - name: Run ODGen
         uses: ./all/
         with:
-          root: ./ODGen/tests/packages/prototype_pollution/confucious@0.0.12
+          root: ${{matrix.root}}
