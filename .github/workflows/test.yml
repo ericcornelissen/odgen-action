@@ -15,15 +15,22 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          # expect: finds a vulnerability
+          ## expect: finds a vulnerability
           - vulnerability_type: os_command
             root: ./ODGen/tests/packages/command_injection/multi_file
           - vulnerability_type: proto_pollution
             root: ./ODGen/tests/packages/prototype_pollution/confucious@0.0.12
+          - vulnerability_type: os_command, proto_pollution
+            root: ./ODGen/tests/packages/command_injection/multi_file
+          - vulnerability_type: |
+              os_command
+              proto_pollution
+            root: ./ODGen/tests/packages/command_injection/multi_file
 
-          # expect: finds no vulnerability
+          ## expect: finds no vulnerability
           - vulnerability_type: proto_pollution
             root: ./ODGen/tests/packages/command_injection/multi_file
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
