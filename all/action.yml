@@ -15,12 +15,11 @@ runs:
   using: composite
   steps:
     - shell: bash
-      run: echo '::warning::ericcornelissen/odgen-action/all has been deprecated in favor of ericcornelissen/odgen-action with a list of vulnerability types'
-    - name: Scan for Path Traversal vulnerabilities
-      uses: ericcornelissen/odgen-action@v1.1.0
+      run: echo '::warning::ericcornelissen/odgen-action/all has been deprecated in favor of using ericcornelissen/odgen-action with a list of vulnerability types'
+    - uses: ericcornelissen/odgen-action@v1.1.0
       with:
         root: ${{inputs.root}}
-        timeout: ${{steps.timeout.outputs.value}}
+        timeout: ${{inputs.timeout}}
         vulnerability_type: |
           os_command
           code_exec
