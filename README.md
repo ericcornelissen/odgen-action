@@ -5,8 +5,6 @@ JavaScript project for command execution, code execution, prototype pollution,
 internal property tampering, cross-site scripting (XSS) or path traversal
 vulnerabilities.
 
-Also check the [/all](./all) variant.
-
 ## Usage
 
 ```yml
