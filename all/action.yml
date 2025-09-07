@@ -16,7 +16,7 @@ runs:
   steps:
     - shell: bash
       run: echo '::warning::ericcornelissen/odgen-action/all has been deprecated in favor of using ericcornelissen/odgen-action with a list of vulnerability types'
-    - uses: ericcornelissen/odgen-action@v1.1.0
+    - uses: ericcornelissen/odgen-action@v1.1.1
       with:
         root: ${{inputs.root}}
         timeout: ${{inputs.timeout}}
