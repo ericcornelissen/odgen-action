@@ -1,0 +1,34 @@
+# Configuration file for Dependabot (https://github.com/dependabot)
+
+version: 2
+updates:
+  - package-ecosystem: docker
+    directory: /
+    open-pull-requests-limit: 1
+    schedule:
+      interval: daily
+      time: "03:00"
+    cooldown:
+      default-days: 2
+    labels:
+      - dependencies
+  - package-ecosystem: github-actions
+    directory: /
+    open-pull-requests-limit: 1
+    schedule:
+      interval: daily
+      time: "03:00"
+    cooldown:
+      default-days: 2
+    labels:
+      - dependencies
+  - package-ecosystem: gitsubmodule
+    directory: /
+    open-pull-requests-limit: 1
+    schedule:
+      interval: daily
+      time: "03:00"
+    cooldown:
+      default-days: 2
+    labels:
+      - dependencies
